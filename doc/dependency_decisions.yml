@@ -45,13 +45,15 @@
   - logback-core
   - :who: 
     :why: 
-    :versions: []
+    :versions:
+    - 1.2.12 
     :when: 2023-08-02
 - - :approve
   - logback-classic
   - :who: 
     :why: 
-    :versions: []
+    :versions: 
+    - 1.2.12
     :when: 2023-08-02
 - - :approve
   - jakarta.xml.bind-api
