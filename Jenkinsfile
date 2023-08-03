@@ -94,13 +94,31 @@ pipeline {
         stage('OCI Image BnP') {
           steps {
             container('kaniko') {
-              sh '/kaniko/executor -f `pwd`/Dockerfile -c `pwd` --insecure --skip-tls-verify --cache=true --destination=docker.io/adrien6910/dsodemo'
+              sh '/kaniko/executor -f `pwd`/Dockerfile -c `pwd` --insecure --skip-tls-verify --cache=true --destination=docker.io/adrien6910/dso-demo'
             }
           }
         }
       }
     }
 
+    stage('Image Analysis') {
+      parallel {
+        stage('Image Linting') {
+          steps {
+            container('docker-tools') {
+              sh 'dockle docker.io/adrien6910/dso-demo'
+            }
+          }
+        }
+        stage('Image Scan') {
+          steps {
+            container('docker-tools') {
+              sh 'trivy image adrien6910/dso-demo'
+            }
+          }
+        }
+      }
+    }
     stage('Deploy to Dev') {
       steps {
         // TODO
