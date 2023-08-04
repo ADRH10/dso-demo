@@ -2,7 +2,7 @@ pipeline {
 
   environment {
     ARGO_SERVER = '35.184.49.10:32100'
-   }
+  }
 
   agent {
     kubernetes {
